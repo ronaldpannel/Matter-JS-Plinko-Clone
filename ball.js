@@ -5,6 +5,7 @@ class Circle {
       restitution: 0.9,
     };
     this.body = Bodies.circle(x, y, r, options);
+    this.body.label = 'ball'
     this.r = r;
     this.color = color
     Composite.add(engine.world, [this.body]);

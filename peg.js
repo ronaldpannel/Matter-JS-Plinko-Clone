@@ -3,11 +3,12 @@ class Peg {
     let options = {
       friction: 0.001,
       restitution: 0.9,
-      isStatic: true
+      isStatic: true,
     };
     this.body = Bodies.circle(x, y, r, options);
+    this.body.label = "peg";
     this.r = r;
-    this.color = color
+    this.color = color;
     Composite.add(engine.world, [this.body]);
   }
   isOffScreen() {

@@ -3,8 +3,8 @@ const Engine = Matter.Engine,
   //Render = Matter.Render,
   Runner = Matter.Runner,
   Bodies = Matter.Bodies,
-  Composite = Matter.Composite,
-  Events = Matter.events;
+  Events = Matter.Events,
+  Composite = Matter.Composite;
 
 let boundary;
 let bucket;
@@ -22,9 +22,7 @@ let collides;
 let rows = 6;
 let cols = 6;
 let score = 0;
-let scoreDisplay
-
-
+let scoreDisplay;
 
 function preload() {
   bellSound = loadSound("bell.wav");
@@ -34,10 +32,31 @@ function setup() {
   createCanvas(440, 600);
   frameRate(30);
 
- 
   engine = Engine.create();
   world = engine.world;
   Matter.Runner.run(engine);
+
+  function collision(event) {
+    let pairs = event.pairs;
+    // console.log(event);
+    for (let i = 0; i < pairs.length; i++) {
+      let labelA = pairs[i].bodyA.label;
+      let labelB = pairs[i].bodyB.label;
+      if (labelA == "peg" && labelB == "ball") {
+        bellSound.play();
+        score++;
+        scoreDisplay = document.getElementById("score").innerHTML = score;
+      }
+      if (labelA == "ball" && labelB == "peg") {
+        bellSound.play();
+        score++;
+        scoreDisplay = document.getElementById("score").innerHTML = score;
+      }
+    }
+  }
+
+  Events.on(engine, "collisionStart", collision);
+  Composite.add(engine.world, [Events]);
 
   boundaryArray.push(
     new Boundary(width / 2, height + 22, width * 2, 50, 0.0),
@@ -106,24 +125,24 @@ function draw() {
     }
   }
   //ball pin collision detection
-  for (let i = 0; i < circleArray.length; i++) {
-    for (let j = 0; j < pegsArray.length; j++) {
-      let posC = circleArray[i].body.position;
-      let posP = pegsArray[j].body.position;
-      let dx = posC.x - posP.x;
-      let dy = posC.y - posP.y;
-      let distance = Math.sqrt(dx * dx + dy * dy);
-      if (circleArray[i].r + pegsArray[j].r > distance) {
-        bellSound.play();
-        score++;
-        scoreDisplay = (document.getElementById("score").innerHTML = score);
-      
-        console.log(score)
-  
-      }
-    }
-  }
-  
+  // for (let i = 0; i < circleArray.length; i++) {
+  //   for (let j = 0; j < pegsArray.length; j++) {
+  //     let posC = circleArray[i].body.position;
+  //     let posP = pegsArray[j].body.position;
+  //     let dx = posC.x - posP.x;
+  //     let dy = posC.y - posP.y;
+  //     let distance = Math.sqrt(dx * dx + dy * dy);
+  //     if (circleArray[i].r + pegsArray[j].r > distance) {
+  //       bellSound.play();
+  //       score++;
+  //       scoreDisplay = (document.getElementById("score").innerHTML = score);
+
+  //       console.log(score)
+
+  //     }
+  //   }
+  // }
+
   for (let i = 0; i < boundaryArray.length; i++) {
     boundaryArray[i].draw();
   }

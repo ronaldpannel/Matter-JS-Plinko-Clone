@@ -1,0 +1,33 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-color: black;
+  overflow: hidden;
+}
+.gameWrapper {
+  /* border: white 2px solid; */
+  width: 450px;
+  height: 610px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+
+}
+canvas {
+  border: 2px green solid;
+  margin: auto;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+p {
+  color: bisque;
+  font-size: 20px;
+  position: absolute;
+  top: 0%;
+  left: 5%;
+  z-index: 100;
+}

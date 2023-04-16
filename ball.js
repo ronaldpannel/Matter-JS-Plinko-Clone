@@ -3,11 +3,12 @@ class Circle {
     let options = {
       friction: 0.001,
       restitution: 0.9,
+      isStatic: false,
     };
     this.body = Bodies.circle(x, y, r, options);
-    this.body.label = 'ball'
+    this.body.label = "ball";
     this.r = r;
-    this.color = color
+    this.color = color;
     Composite.add(engine.world, [this.body]);
   }
   isOffScreen() {
@@ -18,10 +19,10 @@ class Circle {
       return false;
     }
   }
-  removeFromWorld(){
-    Composite.remove(world, this.body)
+  removeFromWorld() {
+    Composite.remove(world, this.body);
   }
-  draw() { 
+  draw() {
     let pos = this.body.position;
     let angle = this.body.angle;
     push();

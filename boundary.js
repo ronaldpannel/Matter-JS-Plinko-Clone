@@ -1,8 +1,8 @@
 class Boundary {
   constructor(x, y, w, h, a) {
     let options = {
-      friction: 0.001,
-      restitution: 0.9,
+      friction: 0.9,
+      restitution: 0,
       isStatic:true,
       angle: a
     };
